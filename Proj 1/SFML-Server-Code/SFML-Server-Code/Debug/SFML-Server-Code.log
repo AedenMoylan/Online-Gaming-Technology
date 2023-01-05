@@ -1,0 +1,14 @@
+﻿  FileTransferData.cpp
+C:\Users\Aeden\Desktop\Lei Project 1\SFML-Server-Code\SFML-Server-Code\FileTransferData.cpp(19,35): warning C4244: '=': conversion from 'std::streamoff' to 'int', possible loss of data
+  Main.cpp
+  Packet.cpp
+  PacketManager.cpp
+  PacketStructs.cpp
+  ProcessPacket.cpp
+  SendGetMethods.cpp
+  Server.cpp
+  ServerIni.cpp
+  Source.cpp
+  Generating Code...
+C:\Users\Aeden\Desktop\Lei Project 1\SFML-Server-Code\SFML-Server-Code\FileTransferData.cpp(23): warning C4715: 'FileTransferData::Initialize': not all control paths return a value
+  SFML-Server-Code.vcxproj -> C:\Users\Aeden\Desktop\Lei Project 1\SFML-Server-Code\Debug\SFML-Server-Code.exe
