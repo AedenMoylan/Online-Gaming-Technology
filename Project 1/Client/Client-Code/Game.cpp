@@ -29,6 +29,7 @@ Game::Game() :
 	gameOverText.setFont(font);
 	gameOverText.setCharacterSize(100);
 	gameOverText.setPosition(600, 600);
+	gameOverText.setString("Game Over");
 }
 
 /// <summary>

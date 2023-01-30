@@ -47,8 +47,7 @@ bool Server::ListenForNewConnection()
 		std::cout << "Client Connected! ID:" << TotalConnections << std::endl;
 		Connections[TotalConnections] = newConnection; //Set socket in array to be the newest connection before creating the thread to handle this client's socket.
 		CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)ClientHandlerThread, (LPVOID)(TotalConnections), NULL, NULL); //Create Thread to handle this client. The index in the socket array for this thread is the value (i).
-		std::string MOTD = "Welcome ! You are player " + std::to_string(TotalConnections);
-		//SendString(TotalConnections, MOTD);
+		std::string MOTD = "You are player " + std::to_string(TotalConnections);
 		SendPlayerID(TotalConnections, std::to_string(TotalConnections));
 		TotalConnections += 1; //Incremenent total # of clients that have connected
 		playerNum = TotalConnections;
@@ -60,25 +59,6 @@ bool Server::ProcessPacket(int ID, Packet _packettype)
 {
 	switch (_packettype)
 	{
-		case P_ChatMessage: //Packet Type: chat message
-		{
-			std::string Message; //string to store our message we received
-			if (!GetString(ID, Message)) //Get the chat message and store it in variable: Message
-				return false; //If we do not properly get the chat message, return false
-							  //Next we need to send the message out to each user
-			for (int i = 0; i < TotalConnections; i++)
-			{
-				if (i == ID) //If connection is the user who sent the message...
-					continue;//Skip to the next user since there is no purpose in sending the message back to the user who sent it.
-				if (!SendString(i, Message)) //Send message to connection at index i, if message fails to be sent...
-				{
-					std::cout << "Failed to send message from client ID: " << ID << " to client ID: " << i << std::endl;
-					std::cout << "Chat"<< std::endl;
-				}
-			}
-			
-			break;
-		}
 		case P_Position: //Packet Type: position
 		{
 			std::string Message; //string to store our message we received
@@ -125,13 +105,14 @@ bool Server::ProcessPacket(int ID, Packet _packettype)
 		}
 		default: //If packet type is not accounted for
 		{
-			std::cout << "Unrecognized packet: " << _packettype << std::endl; //Display that packet was not found
+			std::cout << "Unknown package type: " << _packettype << std::endl; //Display that packet was not found
 			break;
 		}
 	}
 	return true;
 }
 
+// continuosly loops to get packages. breaks out if connection to client is lost
 void Server::ClientHandlerThread(int ID) //ID = the index in the SOCKET Connections array
 {
 	Packet PacketType;

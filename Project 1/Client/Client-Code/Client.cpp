@@ -46,6 +46,7 @@ bool Client::ProcessPacket(Packet _packettype)
 	return true;
 }
 
+// gets packages
 void Client::ClientThread()
 {
 	Packet PacketType;
@@ -67,9 +68,9 @@ void Client::ClientThread()
 	}
 }
 
+//Winsock Startup
 Client::Client(std::string IP, int PORT)
 {
-	//Winsock Startup
 	WSAData wsaData;
 	WORD DllVersion = MAKEWORD(2, 1);
 	if (WSAStartup(DllVersion, &wsaData) != 0)
@@ -78,7 +79,7 @@ Client::Client(std::string IP, int PORT)
 		exit(0);
 	}
 
-	addr.sin_addr.s_addr = inet_addr(IP.c_str()); //Address (127.0.0.1) = localhost (this pc)
+	addr.sin_addr.s_addr = inet_addr(IP.c_str()); //Address (127.0.0.1)
 	addr.sin_port = htons(PORT); //Port 
 	addr.sin_family = AF_INET; //IPv4 Socket
 	clientptr = this; //Update ptr to the client which will be used by our client thread
